@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class TestServiceImpl implements TestService {
 
     @Override
-    @Async
+    @Async("testExecutor")
     public void executor() {
         for (int i = 0; i < 5000; i++) {
             System.out.println("i am working");
