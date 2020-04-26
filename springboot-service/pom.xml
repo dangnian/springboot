@@ -18,10 +18,6 @@
             <groupId>com.dangnian</groupId>
             <artifactId>springboot-entity</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.dangnian</groupId>
-            <artifactId>springboot-common</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

@@ -43,11 +43,6 @@
             </dependency>
             <dependency>
                 <groupId>com.dangnian</groupId>
-                <artifactId>springboot-common</artifactId>
-                <version>${dangnian.springboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dangnian</groupId>
                 <artifactId>springboot-dao</artifactId>
                 <version>${dangnian.springboot.version}</version>
             </dependency>
@@ -58,6 +53,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
