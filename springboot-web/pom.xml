@@ -11,7 +11,7 @@
     <artifactId>springboot-web</artifactId>
     <name>springboot-web</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
