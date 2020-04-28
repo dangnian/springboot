@@ -1,0 +1,16 @@
+async:
+  threadNamePrefix: defaultExecutor-
+  maxPoolSize: 10
+  allowCoreThreadTimeout: false
+  corePoolSize: 10
+  queueCapacity: 1024
+  keepAliveSeconds: 60
+
+scheduler:
+  threadNamePrefix: defaultScheduler-
+  poolSize: 10
+  awaitTerminationSeconds: 600
+  waitForTasksToCompleteOnShutdown: true
+
+
+

@@ -13,36 +13,36 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
+/**
+ * @author chun.yin
+ */
+
 @Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AsyncConfig.class);
 
-    @Value("${threadPoolTaskExecutor.corePoolSize:5}")
+    @Value("${async.corePoolSize:5}")
     private int corePoolSize;
 
-    @Value("${threadPoolTaskExecutor.maxPoolSize:10}")
+    @Value("${async.maxPoolSize:10}")
     private int maxPoolSize;
 
-    @Value("${threadPoolTaskExecutor.keepAliveSeconds:60}")
+    @Value("${async.keepAliveSeconds:60}")
     private int keepAliveSeconds;
 
-    @Value("${threadPoolTaskExecutor.queueCapacity:1024}")
+    @Value("${async.queueCapacity:1024}")
     private int queueCapacity;
 
-    @Value("${threadPoolTaskExecutor.allowCoreThreadTimeout:false}")
+    @Value("${async.allowCoreThreadTimeout:false}")
     private boolean allowCoreThreadTimeout;
 
-    @Value("${threadPoolTaskExecutor.threadNamePrefix:executorDefault-}")
+    @Value("${async.threadNamePrefix:executorDefault-}")
     private String threadNamePrefix;
 
-
-    /**
-     * 默认的线程池获取方法
-     * @return
-     */
     @Override
+    @Bean("defaultExecutor")
     public Executor getAsyncExecutor() {
         return createExecutor(threadNamePrefix);
     }

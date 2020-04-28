@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -20,16 +21,16 @@ public class SchedulingConfig implements SchedulingConfigurer {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SchedulingConfig.class);
 
-    @Value("${threadPoolTaskScheduler.poolSize:10}")
+    @Value("${scheduler.poolSize:10}")
     private int poolSize;
 
-    @Value("${threadPoolTaskScheduler.threadNamePrefix:schedulerDefault-}")
+    @Value("${scheduler.threadNamePrefix:schedulerDefault-}")
     private String threadNamePrefix;
 
-    @Value("${threadPoolTaskScheduler.awaitTerminationSeconds:600}")
+    @Value("${scheduler.awaitTerminationSeconds:600}")
     private int awaitTerminationSeconds;
 
-    @Value("${threadPoolTaskScheduler.waitForTasksToCompleteOnShutdown:true}")
+    @Value("${scheduler.waitForTasksToCompleteOnShutdown:true}")
     private boolean waitForTasksToCompleteOnShutdown;
 
     @Override
@@ -37,8 +38,12 @@ public class SchedulingConfig implements SchedulingConfigurer {
         scheduledTaskRegistrar.setTaskScheduler(taskScheduler());
     }
 
-    @Bean(name = "taskScheduler")
-    public ThreadPoolTaskScheduler taskScheduler() {
+    @Bean(name = "defaultScheduler")
+    public TaskScheduler taskScheduler() {
+        return createScheduler(threadNamePrefix);
+    }
+
+    private TaskScheduler createScheduler(String threadNamePrefix) {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(poolSize);
         scheduler.setThreadNamePrefix(threadNamePrefix);

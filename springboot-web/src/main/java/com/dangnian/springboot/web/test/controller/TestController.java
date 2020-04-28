@@ -1,4 +1,4 @@
-package com.dangnian.springboot.web.controller;
+package com.dangnian.springboot.web.test.controller;
 
 import com.dangnian.springboot.service.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,11 @@ public class TestController {
     }
 
 
-    @GetMapping("testExecutor")
+    @GetMapping("/testExecutor")
     public void testExecutor() {
         testService.executor();
         System.out.println("main thread is over");
 
     }
+
 }
