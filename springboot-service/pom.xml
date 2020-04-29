@@ -6,7 +6,7 @@
         <groupId>com.dangnian</groupId>
         <artifactId>springboot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>springboot-service</artifactId>
     <name>springboot-service</name>
