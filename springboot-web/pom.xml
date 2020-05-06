@@ -27,9 +27,15 @@
             <artifactId>springboot-service</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.dangnian</groupId>
+            <artifactId>springboot-common</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

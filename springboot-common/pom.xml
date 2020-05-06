@@ -8,10 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>springboot-service</artifactId>
-    <name>springboot-service</name>
+    <groupId>com.dangnian</groupId>
+    <artifactId>springboot-common</artifactId>
+    <name>springboot-common</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -20,16 +20,24 @@
         </dependency>
 
         <dependency>
-            <groupId>com.dangnian</groupId>
-            <artifactId>springboot-common</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.2.5.RELEASE</version>
-            <scope>compile</scope>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>

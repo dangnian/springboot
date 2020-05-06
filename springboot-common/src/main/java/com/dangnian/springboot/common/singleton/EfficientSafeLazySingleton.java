@@ -1,4 +1,4 @@
-package com.dangnian.springboot.web.singleton;
+package com.dangnian.springboot.common.singleton;
 
 /**
  * @ClassName EfficientSafeLazySingleton

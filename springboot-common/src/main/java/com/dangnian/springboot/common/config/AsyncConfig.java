@@ -1,4 +1,4 @@
-package com.dangnian.springboot.web.config;
+package com.dangnian.springboot.common.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class AsyncConfig implements AsyncConfigurer {
     @Value("${async.allowCoreThreadTimeout:false}")
     private boolean allowCoreThreadTimeout;
 
-    @Value("${async.threadNamePrefix:executorDefault-}")
+    @Value("${async.threadNamePrefix:defaultExecutor-}")
     private String threadNamePrefix;
 
     @Override

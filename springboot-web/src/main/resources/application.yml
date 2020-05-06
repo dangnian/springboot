@@ -1,16 +1,29 @@
-async:
-  threadNamePrefix: defaultExecutor-
-  maxPoolSize: 10
-  allowCoreThreadTimeout: false
-  corePoolSize: 10
-  queueCapacity: 1024
-  keepAliveSeconds: 60
+spring:
+ application:
+  name: com.dangnian.springboot
 
+server:
+ port: 8080
+
+#swagger
+swagger2:
+ enabled: true
+
+#异步任务
+async:
+ threadNamePrefix: defaultExecutor-
+ maxPoolSize: 10
+ allowCoreThreadTimeout: false
+ corePoolSize: 10
+ queueCapacity: 1024
+ keepAliveSeconds: 60
+
+#定时任务
 scheduler:
-  threadNamePrefix: defaultScheduler-
-  poolSize: 10
-  awaitTerminationSeconds: 600
-  waitForTasksToCompleteOnShutdown: true
+ threadNamePrefix: defaultScheduler-
+ poolSize: 10
+ awaitTerminationSeconds: 600
+ waitForTasksToCompleteOnShutdown: true
 
 
 
