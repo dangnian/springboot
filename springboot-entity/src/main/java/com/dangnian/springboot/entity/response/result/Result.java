@@ -38,19 +38,19 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    public static Result fail() {
+    public static Result failure() {
         Result result = new Result();
         result.setResultCode(ResultCode.FAIL);
         return result;
     }
 
-    public static Result fail(ResultCode resultCode) {
+    public static Result failure(ResultCode resultCode) {
         Result result = new Result();
         result.setResultCode(resultCode);
         return result;
     }
 
-    public static Result fail(Integer code, String message) {
+    public static Result failure(Integer code, String message) {
         Result result = new Result();
         result.setCode(code);
         result.setMessage(message);

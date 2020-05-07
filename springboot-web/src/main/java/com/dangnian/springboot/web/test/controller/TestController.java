@@ -1,6 +1,9 @@
 package com.dangnian.springboot.web.test.controller;
 
-import com.dangnian.springboot.common.response.annotation.ResponseResult;
+import com.dangnian.springboot.common.response.annotation.IgnoreResponseResult;
+import com.dangnian.springboot.common.response.exception.BusinessException;
+import com.dangnian.springboot.entity.response.enums.ResultCode;
+import com.dangnian.springboot.entity.test.po.TestPO;
 import com.dangnian.springboot.service.test.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/testController")
 @Api("测试类")
-@ResponseResult
 public class TestController {
 
     @Autowired
@@ -24,15 +26,29 @@ public class TestController {
 
     @GetMapping("/toPage")
     @ApiOperation("测试接口1")
-    public String toPage(String args) {
-        return args;
+    @IgnoreResponseResult
+    public String toPage() {
+        return "test/testPage";
     }
 
     @GetMapping("/getObject")
     @ApiOperation("测试接口2")
-    public Object getObject() {
-        String s = new String("1");
-        return s;
+    public TestPO getObject() {
+        TestPO po = new TestPO();
+        po.setTestCode("007");
+        po.setTestName("dangnian");
+        return po;
+    }
+
+    @GetMapping("/testException")
+    @ApiOperation("测试接口3")
+    public int testException() {
+        return 1/0;
+    }
+
+    @GetMapping("/testBusinessException")
+    public void testBusinessException(){
+        throw new BusinessException(ResultCode.PARAM_NOT_ILLEGAL, "无效参数");
     }
 
     @GetMapping("/testExecutor")

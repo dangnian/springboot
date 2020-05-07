@@ -23,7 +23,7 @@ public class ErrorResult {
      */
     private String exceptionName;
 
-    public static ErrorResult fail(ResultCode resultCode, Throwable e) {
+    public static ErrorResult failure(ResultCode resultCode, Throwable e) {
         ErrorResult errorResult = new ErrorResult();
         errorResult.setCode(resultCode.code());
         errorResult.setMessage(resultCode.message());
@@ -31,13 +31,11 @@ public class ErrorResult {
         return errorResult;
     }
 
-    public static ErrorResult fail(ResultCode resultCode, Throwable e, String message) {
-        ErrorResult errorResult = ErrorResult.fail(resultCode, e);
+    public static ErrorResult failure(ResultCode resultCode, Throwable e, String message) {
+        ErrorResult errorResult = ErrorResult.failure(resultCode, e);
         errorResult.setMessage(message);
         return errorResult;
     }
-
-
 
     public Integer getCode() {
         return code;

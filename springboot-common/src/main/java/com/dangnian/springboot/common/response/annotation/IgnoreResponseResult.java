@@ -7,11 +7,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 忽略返回值全局处理
  * @Author chun.yin
  **/
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
-public @interface ResponseResult {
+public @interface IgnoreResponseResult {
 
 }

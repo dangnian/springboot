@@ -1,24 +1,24 @@
 package com.dangnian.springboot.common.response.advice;
 
-import com.dangnian.springboot.common.response.annotation.ResponseResult;
-import com.dangnian.springboot.common.util.GsonUtils;
+import com.dangnian.springboot.common.response.annotation.IgnoreResponseResult;
+import com.dangnian.springboot.entity.response.result.ErrorResult;
 import com.dangnian.springboot.entity.response.result.Result;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author chun.yin
  **/
-@ControllerAdvice
+@RestControllerAdvice(basePackages = "com.dangnian.springboot.web",
+        basePackageClasses = GlobalExceptionHandler.class)
+@Order(value = Ordered.HIGHEST_PRECEDENCE)
 public class ResponseHandle implements ResponseBodyAdvice<Object> {
 
     /**
@@ -26,10 +26,13 @@ public class ResponseHandle implements ResponseBodyAdvice<Object> {
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        ResponseResult responseResult = (ResponseResult) request.getAttribute(ResponseResult.class.getSimpleName());
-        return responseResult == null ? false : true;
+        if (methodParameter.getDeclaringClass().isAnnotationPresent(IgnoreResponseResult.class)) {
+            return false;
+        }
+        if (methodParameter.getMethod().isAnnotationPresent(IgnoreResponseResult.class)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -37,19 +40,10 @@ public class ResponseHandle implements ResponseBodyAdvice<Object> {
      */
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        // 返回页面地址特殊处理
-        if (o instanceof String) {
-            return GsonUtils.BeanToJson(o);
+        if (o instanceof ErrorResult) {
+            ErrorResult errorResult = (ErrorResult) o;
+            return Result.failure(errorResult.getCode(), errorResult.getMessage());
         }
-        // 单条数据操作成功/失败
-        if (o instanceof  Boolean) {
-            if ((Boolean) o) {
-                return Result.success();
-            } else {
-                return Result.fail();
-            }
-        }
-
         return Result.success(o);
     }
 }
