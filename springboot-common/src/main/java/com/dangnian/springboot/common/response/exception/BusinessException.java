@@ -8,7 +8,7 @@ import com.dangnian.springboot.entity.response.enums.ResultCode;
 
 public class BusinessException extends RuntimeException{
 
-    protected Integer exceptionCode;
+    protected String exceptionCode;
 
     protected String exceptionMessage;
 
@@ -20,17 +20,17 @@ public class BusinessException extends RuntimeException{
        this(resultCode.code(), resultCode.message());
     }
 
-    public BusinessException(Integer code, String message) {
+    public BusinessException(String code, String message) {
         super(message);
         this.exceptionCode = code;
         this.exceptionMessage = message;
     }
 
-    public Integer getExceptionCode() {
+    public String getExceptionCode() {
         return exceptionCode;
     }
 
-    public void setExceptionCode(Integer exceptionCode) {
+    public void setExceptionCode(String exceptionCode) {
         this.exceptionCode = exceptionCode;
     }
 
