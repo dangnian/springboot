@@ -11,7 +11,7 @@ public class ErrorResult {
     /**
      * 状态码
      */
-    private Integer code;
+    private String code;
 
     /**
      * 异常详情-客户端可见
@@ -37,11 +37,11 @@ public class ErrorResult {
         return errorResult;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
