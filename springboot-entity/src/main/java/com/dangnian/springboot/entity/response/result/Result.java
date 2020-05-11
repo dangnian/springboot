@@ -32,8 +32,20 @@ public class Result<T> implements Serializable {
     }
 
     public static Result success(Object data) {
+        Result result = Result.success();
+        result.setData(data);
+        return result;
+    }
+
+    public static Result failure(ErrorResult errorResult) {
         Result result = new Result();
-        result.setResultCode(ResultCode.SUCCESS);
+        result.setCode(errorResult.getCode());
+        result.setMessage(errorResult.getMessage());
+        return result;
+    }
+
+    public static Result failure(ErrorResult errorResult, Object data) {
+        Result result = Result.failure(errorResult);
         result.setData(data);
         return result;
     }

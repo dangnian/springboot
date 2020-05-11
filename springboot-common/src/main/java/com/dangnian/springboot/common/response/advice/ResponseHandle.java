@@ -42,7 +42,7 @@ public class ResponseHandle implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (o instanceof ErrorResult) {
             ErrorResult errorResult = (ErrorResult) o;
-            return Result.failure(errorResult.getCode(), errorResult.getMessage());
+            return Result.failure(errorResult);
         }
         return Result.success(o);
     }
