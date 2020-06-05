@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author chun.yin
  */
-@SpringBootApplication(scanBasePackages = {"com.dangnian.springboot.web",
-        "com.dangnian.springboot.common", "com.dangnian.springboot.service"})
+@SpringBootApplication(scanBasePackages = {"com.dangnian.springboot"})
 public class SpringbootWebApplication {
 
     public static void main(String[] args) {
