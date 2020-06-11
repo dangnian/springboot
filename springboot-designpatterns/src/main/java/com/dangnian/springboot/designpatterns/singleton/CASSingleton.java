@@ -1,4 +1,4 @@
-package com.dangnian.springboot.common.singleton;
+package com.dangnian.springboot.designpatterns.singleton;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -14,16 +14,22 @@ public class CASSingleton {
 
     private static final AtomicReference<CASSingleton> INSTANCE = new AtomicReference<>();
 
-    private CASSingleton() {};
+    private CASSingleton() {}
 
     public static CASSingleton getInstance() {
         for (; ; ) {
            CASSingleton singleton = INSTANCE.get();
-            if (INSTANCE  != null) {
+            if (singleton  != null) {
                 return singleton;
             }
-            // 刚开始若有大量的线程执行到这里会产生大量的对象
-            singleton = new CASSingleton();
+            try {
+                // 模拟对象创建过程时间
+                Thread.sleep(300);
+                // 刚开始若有大量的线程执行到这里会产生大量的对象
+                singleton = new CASSingleton();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             // 此处如果处于等待中一直执行不成功会导致一直在死循环中，对CPU造成较大的执行开销
             if (INSTANCE.compareAndSet(null, singleton)) {
                 return singleton;

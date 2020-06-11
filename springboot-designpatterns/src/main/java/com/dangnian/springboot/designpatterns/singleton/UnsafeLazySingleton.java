@@ -1,4 +1,4 @@
-package com.dangnian.springboot.common.singleton;
+package com.dangnian.springboot.designpatterns.singleton;
 
 /**
  * @ClassName UnsafeLazySingleton
@@ -12,14 +12,14 @@ public class UnsafeLazySingleton {
 
     private static UnsafeLazySingleton instance = null;
 
-    private UnsafeLazySingleton() {};
+    private UnsafeLazySingleton() {}
 
     public static UnsafeLazySingleton getInstance() {
         // 线程不安全，多个线程执行到这里会导致単例失效
-        if (instance != null) {
+        if (instance == null) {
             try {
                 // 模拟对象创建过程时间
-                Thread.sleep(300);
+                Thread.sleep(1);
                 instance = new UnsafeLazySingleton();
             } catch (InterruptedException e) {
                 e.printStackTrace();

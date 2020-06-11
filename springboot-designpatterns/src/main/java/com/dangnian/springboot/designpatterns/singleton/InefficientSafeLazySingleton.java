@@ -1,4 +1,4 @@
-package com.dangnian.springboot.common.singleton;
+package com.dangnian.springboot.designpatterns.singleton;
 
 /**
  * @ClassName InefficientSafeLazySingleton
@@ -12,10 +12,7 @@ public class InefficientSafeLazySingleton {
 
     private static InefficientSafeLazySingleton instance = null;
 
-    private InefficientSafeLazySingleton() {
-    }
-
-    ;
+    private InefficientSafeLazySingleton() {}
 
     /**
      * 使用同步方法可以保证线程安全但是在高并发的情况下
@@ -24,7 +21,7 @@ public class InefficientSafeLazySingleton {
      * @return
      */
     public synchronized static InefficientSafeLazySingleton getInstance() {
-        if (instance != null) {
+        if (instance == null) {
             try {
                 // 模拟对象创建过程时间
                 Thread.sleep(300);

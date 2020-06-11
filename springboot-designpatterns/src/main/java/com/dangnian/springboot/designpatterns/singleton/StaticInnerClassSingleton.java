@@ -1,4 +1,4 @@
-package com.dangnian.springboot.common.singleton;
+package com.dangnian.springboot.designpatterns.singleton;
 
 import java.io.ObjectStreamException;
 
@@ -16,7 +16,7 @@ public class StaticInnerClassSingleton {
         private static StaticInnerClassSingleton instance = new StaticInnerClassSingleton();
     }
 
-    private StaticInnerClassSingleton() {};
+    private StaticInnerClassSingleton() {}
 
     /**
      * 使用静态内部类可以保证线程安全但是如果对象被序列化然后反序列化后

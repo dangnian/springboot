@@ -1,4 +1,4 @@
-package com.dangnian.springboot.common.singleton;
+package com.dangnian.springboot.designpatterns.singleton;
 
 /**
  * @ClassName EfficientSafeLazySingleton
@@ -10,14 +10,14 @@ package com.dangnian.springboot.common.singleton;
 
 public class EfficientSafeLazySingleton {
 
-    private static EfficientSafeLazySingleton instance = null;
+    private static volatile EfficientSafeLazySingleton instance = null;
 
-    private EfficientSafeLazySingleton(){};
+    private EfficientSafeLazySingleton(){}
 
     public static EfficientSafeLazySingleton getInstance() {
-        if (instance != null) {
+        if (instance == null) {
             synchronized (InefficientSafeLazySingleton.class) {
-                if (instance != null) {
+                if (instance == null) {
                     // 模拟对象创建过程时间
                     try {
                         Thread.sleep(300);

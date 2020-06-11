@@ -1,125 +1,166 @@
 package com.dangnian.springboot.common.util;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Map;
-
-/**
- * @Author chun.yin
- **/
 
 public class GsonUtils {
-    private static Gson gson = null;
 
-    static {
-        if (gson == null) {
-            gson = new Gson();
-        }
-    }
+	/**
+	 * 获得默认代理对象
+	 *
+	 * @return CollectionUtils
+	 */
+	public static Gson getProxy(){
+		return new Gson();
+	}
 
-    private GsonUtils() {
-    }
 
-    /**
-     * 转成json
-     *
-     * @param object
+	/**
+	 * 业务对象转化为json字符串
+	 *
+	 * @param   src 业务对象
+	 * @return
+	 */
+	public static String toJson(Object src){
+		Gson gson = new Gson();
+		return gson.toJson(src);
+	}
+
+	/**
+	 * 业务对象转化为json字符串
+	 *
+	 * @param src     业务对象
+	 * @param typeOfT
      * @return
      */
-    public static String BeanToJson(Object object) {
-        String gsonString = null;
-        if (gson != null) {
-            gsonString = gson.toJson(object);
-        }
-        return gsonString;
-    }
+	public static String toJson(Object src, Type typeOfT){
+		Gson gson = new Gson();
+		return gson.toJson(src,typeOfT);
+	}
 
-    /**
-     * 转成bean
-     *
-     * @param gsonString
-     * @param cls
+	/**
+	 * 转化为业务对象
+	 *
+	 * @param json   json字符串
+	 * @param clazz  业务类类型
      * @return
      */
-    public static <T> T GsonToBean(String gsonString, Class<T> cls) {
-        T t = null;
-        if (gson != null) {
-            t = gson.fromJson(gsonString, cls);
-        }
-        return t;
-    }
-
+	public static <T> T fromJson(String json, Class<T> clazz){
+		Gson gson = new Gson();
+		return gson.fromJson(json, clazz);
+	}
+	
     /**
-     * 转成list
-     * 泛型在编译期类型被擦除导致报错
-     *
-     * @param gsonString
-     * @param cls
-     * @return
-     */
-    public static <T> List<T> GsonToList(String gsonString, Class<T> cls) {
-        List<T> list = null;
-        if (gson != null) {
-            list = gson.fromJson(gsonString, new TypeToken<List<T>>() {
-            }.getType());
-        }
-        return list;
-    }
-
-    /**
-     * 转成list
-     * 解决泛型问题
-     *
+     * 转化为业务对象
+     * 
      * @param json
-     * @param cls
-     * @param <T>
+     * @param typeOfT Type type = new TypeToken<T>(){}.getType();
      * @return
      */
-    public static  <T> List<T> jsonToList(String json, Class<T> cls) {
-        Gson gson = new Gson();
-        List<T> list = new ArrayList<T>();
-        JsonArray array = new JsonParser().parse(json).getAsJsonArray();
-        for (final JsonElement elem : array) {
-            list.add(gson.fromJson(elem, cls));
-        }
-        return list;
-    }
+	public static <T> T fromJson(String json, Type typeOfT){
+		Gson gson = new Gson();
+		return gson.fromJson(json, typeOfT);
+	}
 
-
-    /**
-     * 转成list中有map的
-     *
-     * @param gsonString
-     * @return
+	/**
+	 * 转化JsonObject通用类型
+	 *
+	 * @param   src 业务对象
+	 *
+	 * @return
      */
-    public static <T> List<Map<String, T>> GsonToListMaps(String gsonString) {
-        List<Map<String, T>> list = null;
-        if (gson != null) {
-            list = gson.fromJson(gsonString,
-                    new TypeToken<List<Map<String, T>>>() {
-                    }.getType());
-        }
-        return list;
-    }
+	public static JsonObject toJsonObject(Object src){
+		if(src != null){
+			JsonParser parser = new JsonParser();
+			return (JsonObject)parser.parse(GsonUtils.toJson(src));
+		}
+		return  null;
+	}
 
-    /**
-     * 转成map的
-     *
-     * @param gsonString
-     * @return
-     */
-    public static <T> Map<String, T> GsonToMaps(String gsonString) {
-        Map<String, T> map = null;
-        if (gson != null) {
-            map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
-            }.getType());
-        }
-        return map;
-    }
+	/**
+	 * 转化字节码
+	 *
+	 * @param src
+	 * @param charsetName
+	 * @return
+	 */
+	public static byte[]  toByte(Object src,String charsetName){
+		String dataString = toJson(src);
+		if(dataString != null){
+			return dataString.getBytes(Charset.forName(charsetName));
+		}
+		return null;
+	}
+
+	/**
+	 * 字节转化成对象
+	 *
+	 * @param dataByte
+	 * @param charsetName
+	 * @param objClazz
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> T toObject(byte[] dataByte,String charsetName,Class<T> objClazz){
+		try {
+			String dataString = new String(dataByte,charsetName);
+			return  fromJson(dataString,objClazz);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 字节转化成LIST对象
+	 *
+	 * @param dataByte
+	 * @param charsetName
+	 * @param objClazz
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> List<T> toObjectList(byte[] dataByte,String charsetName,Class<T> objClazz) {
+		List<T>  objList = null;
+		try {
+			String dataString = new String(dataByte,charsetName);
+			objList = fromJson(dataString,new ParameterizedTypeImpl(objClazz));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return objList;
+	}
+
+	public static <T> List<T> toObjectList(String dataStringJson,Class<T> objClazz) {
+		return fromJson(dataStringJson,new ParameterizedTypeImpl(objClazz));
+	}
+
+
+
+	private static class ParameterizedTypeImpl implements ParameterizedType {
+		Class clazz;
+		public ParameterizedTypeImpl(Class clz) {
+			clazz = clz;
+		}
+		@Override
+		public Type[] getActualTypeArguments() {
+			return new Type[]{clazz};
+		}
+		@Override
+		public Type getRawType() {
+			return List.class;
+		}
+		@Override
+		public Type getOwnerType() {
+			return null;
+		}
+	}
+
 }

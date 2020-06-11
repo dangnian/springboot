@@ -1,4 +1,4 @@
-package com.dangnian.springboot.common.singleton;
+package com.dangnian.springboot.designpatterns.singleton;
 
 /**
  * @ClassName EnumSingleton
@@ -12,7 +12,7 @@ public class EnumSingleton {
 
      private enum EnumSingletonFactory {
 
-        singletonFactory;
+        SINGLETON_FACTORY;
 
          private MySingleton instance;
 
@@ -35,7 +35,7 @@ public class EnumSingleton {
     }
 
     public static EnumSingletonFactory.MySingleton getInstance() {
-        return EnumSingletonFactory.singletonFactory.getInstance();
+        return EnumSingletonFactory.SINGLETON_FACTORY.getInstance();
     }
 
 }
