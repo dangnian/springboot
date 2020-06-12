@@ -1,6 +1,6 @@
 package com.dangnian.springboot.common.util;
 
-import com.zhaogang.saas.voucher.common.base.model.vo.BaseSelectVO;
+import com.dangnian.springboot.entity.test.vo.BaseSelectVO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 

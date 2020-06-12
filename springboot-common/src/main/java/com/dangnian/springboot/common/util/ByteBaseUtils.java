@@ -109,7 +109,9 @@ public class ByteBaseUtils {
             int ti = bs[i];
             ti = ti < 0 ? ti + 256 : ti;
             String t = Integer.toHexString(ti);
-            if (t.length() < 2) t = "0" + t;
+            if (t.length() < 2) {
+                t = "0" + t;
+            }
             res[i * 2] = (byte) t.charAt(0);
             res[i * 2 + 1] = (byte) t.charAt(1);
         }

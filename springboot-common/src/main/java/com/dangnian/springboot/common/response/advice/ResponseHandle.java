@@ -1,8 +1,7 @@
 package com.dangnian.springboot.common.response.advice;
 
 import com.dangnian.springboot.common.response.annotation.IgnoreResponseResult;
-import com.dangnian.springboot.entity.response.result.ErrorResult;
-import com.dangnian.springboot.entity.response.result.Result;
+import com.dangnian.springboot.common.util.ResultUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -40,10 +39,6 @@ public class ResponseHandle implements ResponseBodyAdvice<Object> {
      */
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (o instanceof ErrorResult) {
-            ErrorResult errorResult = (ErrorResult) o;
-            return Result.failure(errorResult);
-        }
-        return Result.success(o);
+        return ResultUtils.success(o);
     }
 }

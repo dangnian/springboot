@@ -1,8 +1,8 @@
 package com.dangnian.springboot.common.util;
 
 
-import com.zhaogang.saas.voucher.common.base.enums.EResultCode;
-import com.zhaogang.saas.voucher.common.base.model.vo.Result;
+import com.dangnian.springboot.common.response.enums.EResultCode;
+import com.dangnian.springboot.common.response.model.Result;
 
 /**
  * @Author chun.yin

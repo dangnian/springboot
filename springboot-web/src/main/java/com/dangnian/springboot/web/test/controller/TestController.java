@@ -1,8 +1,8 @@
 package com.dangnian.springboot.web.test.controller;
 
 import com.dangnian.springboot.common.response.annotation.IgnoreResponseResult;
-import com.dangnian.springboot.common.response.exception.BusinessException;
-import com.dangnian.springboot.entity.response.enums.ResultCode;
+import com.dangnian.springboot.common.response.enums.EResultCode;
+import com.dangnian.springboot.common.response.exception.CommonRuntimeException;
 import com.dangnian.springboot.entity.test.po.TestPO;
 import com.dangnian.springboot.service.test.TestService;
 import io.swagger.annotations.Api;
@@ -48,7 +48,7 @@ public class TestController {
 
     @GetMapping("/testBusinessException")
     public void testBusinessException(){
-        throw new BusinessException(ResultCode.PARAM_NOT_ILLEGAL, "无效参数");
+        throw new CommonRuntimeException(EResultCode.PARAM_NOT_ILLEGAL, "无效参数");
     }
 
     @GetMapping("/testExecutor")
