@@ -19,7 +19,12 @@ public class StaticInnerClassSingleton {
         private static StaticInnerClassSingleton instance = new StaticInnerClassSingleton();
     }
 
-    private StaticInnerClassSingleton() {}
+    private StaticInnerClassSingleton() {
+        // 避免通过反射调用构造方法调用
+        if (MySingletonHolder.instance != null) {
+            throw new RuntimeException("不允许创建多个实例");
+        }
+    }
 
     /**
      * 使用静态内部类可以保证线程安全但是如果对象被序列化然后反序列化后
@@ -35,7 +40,7 @@ public class StaticInnerClassSingleton {
      * @return
      * @throws ObjectStreamException
      */
-    protected Object readResolve() throws ObjectStreamException {
+    protected Object readResolve() {
         System.out.println("调用了readResolve方法！");
         return MySingletonHolder.instance;
     }
