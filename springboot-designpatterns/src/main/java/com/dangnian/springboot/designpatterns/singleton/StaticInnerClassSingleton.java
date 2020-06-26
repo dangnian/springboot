@@ -12,6 +12,9 @@ import java.io.ObjectStreamException;
 
 public class StaticInnerClassSingleton {
 
+    /**
+     * 内部类的执行依赖外部类的调用
+     */
     private static class MySingletonHolder {
         private static StaticInnerClassSingleton instance = new StaticInnerClassSingleton();
     }
