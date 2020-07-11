@@ -32,4 +32,21 @@ public class DataGridVO<T> {
 		this.total = total;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DataGridVO<?> that = (DataGridVO<?>) o;
+
+		if (total != that.total) return false;
+		return rows != null ? rows.equals(that.rows) : that.rows == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = rows != null ? rows.hashCode() : 0;
+		result = 31 * result + total;
+		return result;
+	}
 }

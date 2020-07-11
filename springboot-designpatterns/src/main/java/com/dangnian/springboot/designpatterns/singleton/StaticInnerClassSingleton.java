@@ -37,6 +37,8 @@ public class StaticInnerClassSingleton {
 
     /**
      * 该方法在反序列化时会被调用，该方法不是接口定义的方法，是约定俗成的
+     * 就是java为了解决序列化破坏单例的一种解决方案，在序列化的时候会判断对象是否有这个方法
+     * 如果有会调用这个方法覆盖序列化创建的对象，之前反序列化出来的对象会被jvm回收
      * @return
      * @throws ObjectStreamException
      */
