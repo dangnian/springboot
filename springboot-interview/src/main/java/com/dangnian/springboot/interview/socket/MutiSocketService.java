@@ -22,7 +22,7 @@ public class MutiSocketService implements Runnable{
             System.out.println("接收到客户端的连接" + clientStr);
 
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            writer.write("我收到了客户端的信息");
+            writer.write("我收到了客户端的信息\n");
             writer.flush();
         } catch (Exception e) {
             e.printStackTrace();

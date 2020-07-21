@@ -50,7 +50,7 @@ public class NIOSocketClientDemo {
                 socketChannel.finishConnect();
             }
             socketChannel.configureBlocking(false);
-            socketChannel.write(ByteBuffer.wrap("我是客户端".getBytes()));
+            socketChannel.write(ByteBuffer.wrap("我是NIO客户端".getBytes()));
             // 注册读事件
             socketChannel.register(selector, SelectionKey.OP_READ);
         } catch (IOException e) {
