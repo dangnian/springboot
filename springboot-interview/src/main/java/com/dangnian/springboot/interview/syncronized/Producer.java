@@ -1,6 +1,5 @@
 package com.dangnian.springboot.interview.syncronized;
 
-import java.sql.Time;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
@@ -18,9 +17,9 @@ public class Producer implements Runnable {
     public void run() {
         int i = 0;
         while(true) {
-            i++;
             synchronized (queue) {
-                if(queue.size() == maxSize) {
+                i++;
+                while(queue.size() >= maxSize) {
                     try {
                         queue.wait();
                     } catch (InterruptedException e) {
