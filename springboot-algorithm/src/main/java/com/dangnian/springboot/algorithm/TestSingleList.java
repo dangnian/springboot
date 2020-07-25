@@ -1,7 +1,6 @@
 package com.dangnian.springboot.algorithm;
 
 
-import java.util.List;
 
 public class TestSingleList {
 
