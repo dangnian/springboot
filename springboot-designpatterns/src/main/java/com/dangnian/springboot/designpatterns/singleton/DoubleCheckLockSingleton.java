@@ -8,20 +8,20 @@ package com.dangnian.springboot.designpatterns.singleton;
  * @Version 1.0
  **/
 
-public class EfficientSafeLazySingleton {
+public class DoubleCheckLockSingleton {
 
-    private static volatile EfficientSafeLazySingleton instance = null;
+    private static volatile DoubleCheckLockSingleton instance = null;
 
-    private EfficientSafeLazySingleton(){}
+    private DoubleCheckLockSingleton(){}
 
-    public static EfficientSafeLazySingleton getInstance() {
+    public static DoubleCheckLockSingleton getInstance() {
         if (instance == null) {
             synchronized (InefficientSafeLazySingleton.class) {
                 if (instance == null) {
                     // 模拟对象创建过程时间
                     try {
                         Thread.sleep(300);
-                        instance = new EfficientSafeLazySingleton();
+                        instance = new DoubleCheckLockSingleton();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
